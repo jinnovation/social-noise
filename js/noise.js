@@ -6,26 +6,26 @@
 
   var svg = d3.select(entryPointSelector)
     .append("svg")
-    .attr("width", width)
-    .attr("height", height);
+    .attr("width", "100%")
+    .attr("height", "100%");
 
   svg.attr("style", "background-color: " + colorScheme.bg + ";");
 
   var textGroup = svg.append("g")
     .attr("id", "hashtags")
     .attr("class", "container")
-    .attr("transform", "translate(" + dimensions.margin.left + "," + dimensions.margin.top + ")");
 
   var titleGroup = svg.append("g")
     .attr("id", "title");
 
   titleGroup.append("rect")
-    .attr("x", 400) // TODO
-    .attr("y", 400) // TODO
-    .attr("width", 100) // TODO: dependent on svg width
-    .attr("height", 100) // TODO: dependent on svg height
+    .attr("x", (width/2) - (width / 3 / 2))
+    .attr("y", (height/2) - (height / 3 / 2))
+    .attr("width", width / 3)
+    .attr("height", height / 3)
     .attr("fill", d3.rgb(255,255,255))
     .attr("fill-opacity", 0.6);
+  // TODO: append title text and author text to title card
 
   dsv(hashtagsFile, function (error, data) {
     hashtagData = data;

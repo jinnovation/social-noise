@@ -13,8 +13,8 @@ var dimensions = {
     left: 20 
   }
 }
-var width  = dimensions.master.width - dimensions.margin.left - dimensions.margin.right;
-var height = dimensions.master.height - dimensions.margin.top - dimensions.margin.bottom;
+var width = parseInt(d3.select("body").style("width"), 10);
+var height = parseInt(d3.select("body").style("height"), 10);
 
 var colorScheme = {
   bg: d3.rgb(14,255,0),
@@ -57,11 +57,9 @@ var transition = {
     min: 100,
     max: 800,
     rand: function () {
-      var speed = transition.speed.min 
+      return transition.speed.min 
         + Math.floor(Math.random() 
             * (transition.speed.max - transition.speed.min));
-
-      return speed;
     }
   }
 }
