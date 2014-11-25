@@ -66,6 +66,11 @@
     update();
   })
 
+  function getRandomFill () {
+    var randIndex = Math.floor(Math.random() * colorScheme.text.length);
+    return colorScheme.text[randIndex];
+  }
+
   function update() {
     hashtagText = svg.selectAll("text")
       .data(hashtagData)
@@ -76,7 +81,7 @@
 
     hashtagText
       .attr("x", function (d) { return Math.random() * width; })
-      .attr("y", function (d) { return Math.random() * height;});
+      .attr("y", function (d) { return Math.random() * height; });
 
     // TODO: randomize periodically
     hashtagText.attr("font-family", function () {
@@ -89,10 +94,7 @@
     });
 
     // TODO: randomize periodically
-    hashtagText.attr("fill", function () {
-      var randIndex = Math.floor(Math.random() * colorScheme.text.length);
-      return colorScheme.text[randIndex];
-    });
+    hashtagText.attr("fill", getRandomFill);
 
     hashtagText.transition()
       .each(hashtagTransition);
@@ -105,10 +107,8 @@
           .duration(function () { return transition.speeds[Math.floor(Math.random() * transition.speeds.length)]})
           .attr("x", function () { return Math.floor(Math.random() * width); })
           .attr("y", function () { return Math.floor(Math.random() * height); })
-          .attr("fill", function () {
-            var randIndex = Math.floor(Math.random() * colorScheme.text.length);
-            return colorScheme.text[randIndex];
-          })
+          .attr("fill", getRandomFill)
+        // FIXME: implement different duration for fill and position 
         .each("end", repeat);
       })();
     }
