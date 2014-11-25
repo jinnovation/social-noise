@@ -22,6 +22,14 @@
     ]
   };
 
+  var transition = {
+    speeds: [
+      500,
+      1000,
+      2500
+    ]
+  }
+
   var hashtagsFile       = "hashtags.txt"; // TODO: pull from Twitter API
 
   function randRange(min, max) {
@@ -66,7 +74,6 @@
       .attr("class", "hashtag")
       .text(function (d) { return d.tag; });
 
-    // TODO: random looped transitions
     hashtagText
       .attr("x", function (d) { return Math.random() * width; })
       .attr("y", function (d) { return Math.random() * height;});
@@ -86,5 +93,24 @@
       var randIndex = Math.floor(Math.random() * colorScheme.text.length);
       return colorScheme.text[randIndex];
     });
+
+    hashtagText.transition()
+      .each(hashtagTransition);
+
+    function hashtagTransition () {
+      var text = d3.select(this);
+
+      (function repeat() {
+        text.transition()
+          .duration(function () { return transition.speeds[Math.floor(Math.random() * transition.speeds.length)]})
+          .attr("x", function () { return Math.floor(Math.random() * width); })
+          .attr("y", function () { return Math.floor(Math.random() * height); })
+          .attr("fill", function () {
+            var randIndex = Math.floor(Math.random() * colorScheme.text.length);
+            return colorScheme.text[randIndex];
+          })
+        .each("end", repeat);
+      })();
+    }
   }
 })();
