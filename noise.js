@@ -1,6 +1,8 @@
 "use strict";
 
 (function () {
+  var dsv = d3.dsv("\n", "text/plain");
+
   var dimensions = {
     master: {
       height: 1080,
@@ -29,7 +31,9 @@
         d3.rgb(195,255,104)
       ],
       rand: function () {
-        return colorScheme.text.values[Math.floor(Math.random() * colorScheme.text.values.length)];
+        var randIndex = Math.floor(Math.random() 
+            * colorScheme.text.values.length);
+        return colorScheme.text.values[randIndex];
       }
     }
   };
@@ -65,11 +69,7 @@
     }
   }
 
-  var hashtagsFile       = "hashtags.txt"; // TODO: pull from Twitter API
-
-  function randRange(min, max) {
-    return min + Math.floor(Math.random() * (max - min + 1));
-  }
+  var hashtagsFile = "hashtags.txt"; // TODO: pull from Twitter API
 
   var entryPointSelector = "body";
 
@@ -83,13 +83,10 @@
 
   svg.attr("style", "background-color: " + colorScheme.bg + ";");
 
-  svg
-    .append("g")
+  svg.append("g")
     .attr("id", "hashtags")
     .attr("class", "container")
     .attr("transform", "translate(" + dimensions.margin.left + "," + dimensions.margin.top + ")");
-
-  var dsv = d3.dsv("\n", "text/plain");
 
   dsv(hashtagsFile, function (error, data) {
     hashtagData = data;
@@ -106,8 +103,8 @@
       .text(function (d) { return d.tag; });
 
     hashtagText
-      .attr("x", function (d) { return Math.random() * width; })
-      .attr("y", function (d) { return Math.random() * height; });
+      .attr("x", function (d) { return Math.floor(Math.random() * width); })
+      .attr("y", function (d) { return Math.floor(Math.random() * height); });
 
     // TODO: randomize periodically
     hashtagText.attr("font-family", function () {
