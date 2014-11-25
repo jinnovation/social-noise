@@ -18,4 +18,9 @@ Go take a look; I think you'll see what I mean.
 
 ## Implementation
 
-TODO
+The hashtags I used were pulled manually from the Starbucks, Urban Outfitters,
+Sephora, and University of Chicago Twitter feeds. Additionally, I made some up
+on the spot. Some more were taken from Facebook friends' status updates.
+
+The implementation itself is a quickfire
+[d3.js](https://github.com/mbostock/d3) visualization.
