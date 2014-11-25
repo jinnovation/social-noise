@@ -1,10 +1,6 @@
 "use strict";
 
 (function () {
-
-
-  var entryPointSelector = "body";
-
   var hashtagData;
   var hashtagText;
 
@@ -15,19 +11,26 @@
 
   svg.attr("style", "background-color: " + colorScheme.bg + ";");
 
-  svg.append("g")
+  var textGroup = svg.append("g")
     .attr("id", "hashtags")
     .attr("class", "container")
     .attr("transform", "translate(" + dimensions.margin.left + "," + dimensions.margin.top + ")");
 
+  var titleGroup = svg.append("g")
+    .attr("id", "title");
+
+  titleGroup.append("rect")
+    .attr("x", 400) // TODO
+    .attr("y", 400) // TODO
+    .attr("width", 100) // TODO: dependent on svg width
+    .attr("height", 100) // TODO: dependent on svg height
+    .attr("fill", d3.rgb(255,255,255))
+    .attr("fill-opacity", 0.6);
+
   dsv(hashtagsFile, function (error, data) {
     hashtagData = data;
 
-    update();
-  })
-
-  function update() {
-    hashtagText = svg.selectAll("text")
+    hashtagText = textGroup.selectAll("text")
       .data(hashtagData)
       .enter()
       .append("text")
@@ -48,6 +51,10 @@
 
     hashtagText.attr("fill", colorScheme.text.rand);
 
+    update();
+  });
+
+  function update() {
     hashtagText.transition()
       .each(hashtagTransition);
 
@@ -64,6 +71,8 @@
           // FIXME: implement different duration for fill and position
           // FIXME: implement efficient transition for font size
           .each("end", repeat);
+
+        // TODO: randomly push hashtag elements to front 
       })();
     }
   }

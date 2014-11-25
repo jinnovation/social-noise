@@ -7,8 +7,8 @@ var dimensions = {
   },
 
   margin: {
-    top: 30, 
-    right: 20, 
+    top: 30,
+    right: 20,
     bottom: 30, 
     left: 20 
   }
