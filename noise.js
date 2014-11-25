@@ -3,14 +3,19 @@
 (function () {
   var colorScheme = {
     bg: d3.rgb(14,255,0),
-    text: [
-      d3.rgb(255,238,0),
-      d3.rgb(238,51,34),
-      d3.rgb(0,119,238),
-      d3.rgb(249, 14, 241),
-      d3.rgb(255,255,255),
-      d3.rgb(195,255,104)
-    ]
+    text: {
+      values: [
+        d3.rgb(255,238,0),
+        d3.rgb(238,51,34),
+        d3.rgb(0,119,238),
+        d3.rgb(249, 14, 241),
+        d3.rgb(255,255,255),
+        d3.rgb(195,255,104)
+      ],
+      rand: function () {
+        return colorScheme.text.values[Math.floor(Math.random() * colorScheme.text.values.length)];
+      }
+    }
   };
 
   var font = {
@@ -35,7 +40,9 @@
       min: 100,
       max: 800,
       rand: function () {
-        var speed = transition.speed.min + Math.floor(Math.random() * (transition.speed.max - transition.speed.min));
+        var speed = transition.speed.min 
+          + Math.floor(Math.random() 
+              * (transition.speed.max - transition.speed.min));
 
         return speed;
       }
@@ -78,11 +85,6 @@
     update();
   })
 
-  function getRandomFill () {
-    var randIndex = Math.floor(Math.random() * colorScheme.text.length);
-    return colorScheme.text[randIndex];
-  }
-
   function update() {
     hashtagText = svg.selectAll("text")
       .data(hashtagData)
@@ -103,7 +105,7 @@
     // TODO: randomize periodically
     hashtagText.attr("font-size", font.size.rand);
 
-    hashtagText.attr("fill", getRandomFill);
+    hashtagText.attr("fill", colorScheme.text.rand);
 
     hashtagText.transition()
       .each(hashtagTransition);
@@ -113,11 +115,11 @@
 
       (function repeat() {
         text.transition()
-          .delay(function () { return Math.floor(Math.random() * 10); })
+          .delay(function () { return Math.floor(Math.random() * 200); })
           .duration(transition.speed.rand)
           .attr("x", function () { return Math.floor(Math.random() * width); })
           .attr("y", function () { return Math.floor(Math.random() * height); })
-          .attr("fill", getRandomFill)
+          .attr("fill", colorScheme.text.rand)
           // FIXME: implement different duration for fill and position
           // FIXME: implement efficient transition for font size
           .each("end", repeat);
