@@ -16,7 +16,12 @@
   var font = {
     size: {
       min: 20,
-      max: 50
+      max: 50,
+      rand: function () {
+        var size = font.size.min 
+          + Math.floor(Math.random() * (font.size.max - font.size.min));
+        return size;
+      }
     },
     faces: [
       "cursive",
@@ -28,7 +33,12 @@
   var transition = {
     speed: {
       min: 100,
-      max: 500
+      max: 800,
+      rand: function () {
+        var speed = transition.speed.min + Math.floor(Math.random() * (transition.speed.max - transition.speed.min));
+
+        return speed;
+      }
     }
   }
 
@@ -92,7 +102,7 @@
 
     // TODO: randomize periodically
     hashtagText.attr("font-size", function () {
-      return randRange(font.size.min, font.size.max);
+      return font.size.rand();
     });
 
     // TODO: randomize periodically
@@ -107,7 +117,7 @@
       (function repeat() {
         text.transition()
           .delay(function () { return Math.floor(Math.random() * 10); })
-          .duration(function () { return transition.speed.min + Math.floor(Math.random() * (transition.speed.max - transition.speed.min)); })
+          .duration(transition.speed.rand)
           .attr("x", function () { return Math.floor(Math.random() * width); })
           .attr("y", function () { return Math.floor(Math.random() * height); })
           .attr("fill", getRandomFill)
