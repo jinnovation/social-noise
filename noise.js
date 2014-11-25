@@ -66,18 +66,22 @@
       .attr("class", "hashtag")
       .text(function (d) { return d.tag; });
 
+    // TODO: random looped transitions
     hashtagText
       .attr("x", function (d) { return Math.random() * width; })
       .attr("y", function (d) { return Math.random() * height;});
 
+    // TODO: randomize periodically
     hashtagText.attr("font-family", function () {
       return font.faces[Math.floor(Math.random() * font.faces.length)];
     });
 
+    // TODO: randomize periodically
     hashtagText.attr("font-size", function () {
       return randRange(font.size.min, font.size.max);
     });
 
+    // TODO: randomize periodically
     hashtagText.attr("fill", function () {
       var randIndex = Math.floor(Math.random() * colorScheme.text.length);
       return colorScheme.text[randIndex];
