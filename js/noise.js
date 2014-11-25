@@ -16,16 +16,29 @@
     .attr("class", "container")
 
   var titleGroup = svg.append("g")
-    .attr("id", "title");
+    .attr("id", "title")
+    .attr("transform", "translate(" 
+        + Math.floor((width/2) - (width / 3 / 2)) 
+        + "," 
+        + Math.floor((height/2) - (height / 3 / 2)) 
+        + ")");
 
   titleGroup.append("rect")
-    .attr("x", (width/2) - (width / 3 / 2))
-    .attr("y", (height/2) - (height / 3 / 2))
-    .attr("width", width / 3)
-    .attr("height", height / 3)
+    .attr("width", Math.floor(width / 3))
+    .attr("height", Math.floor(height / 3))
     .attr("fill", d3.rgb(255,255,255))
     .attr("fill-opacity", 0.6);
   // TODO: append title text and author text to title card
+  
+  var titleTextGroup = titleGroup.append("g")
+    .attr("class", "title")
+    .attr("font-family", "cursive");
+
+  titleTextGroup.append("text")
+    .attr("fill", colorScheme.text[0])
+    .attr("font-size", (font.size.max + font.size.min) / 4)
+    .attr("transform", "translate(275,164)") // TODO: make deterministic 
+    .text("#art");
 
   dsv(hashtagsFile, function (error, data) {
     hashtagData = data;
