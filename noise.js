@@ -9,9 +9,15 @@ var colorScheme = {
   ]
 };
 
-var fontSize = {
-  min: 20,
-  max: 40
+var font = {
+  size: {
+    min: 20,
+    max: 40
+  },
+  faces: [
+    "cursive",
+    "fantasy"
+  ]
 };
 
 function randRange(min, max) {
@@ -33,8 +39,11 @@ function randRange(min, max) {
   var svg = d3.select(entryPointSelector)
     .append("svg")
     .attr("width", width)
-    .attr("height", height)
-    .attr("style", "background-color: " + colorScheme.bg + ";")
+    .attr("height", height);
+
+  svg.attr("style", "background-color: " + colorScheme.bg + ";");
+
+  svg
     .append("g")
     .attr("id", "hashtags")
     .attr("class", "container")
@@ -58,12 +67,15 @@ function randRange(min, max) {
       .attr("x", function (d) { return Math.random() * width; })
       .attr("y", function (d) { return Math.random() * height;});
 
-    hashtagText
-      .attr("font-family", "sans-serif") // TODO: set font elsewhere
-      .attr("font-size", function () {
-        return randRange(fontSize.min, fontSize.max);
-      })
-      .attr("fill", function () {
+    hashtagText.attr("font-family", function () {
+        return font.faces[Math.floor(Math.random() * font.faces.length)];
+      });
+
+    hashtagText.attr("font-size", function () {
+        return randRange(font.size.min, font.size.max);
+      });
+
+    hashtagText.attr("fill", function () {
         var randIndex = Math.floor(Math.random() * colorScheme.text.length);
         return colorScheme.text[randIndex];
       });
