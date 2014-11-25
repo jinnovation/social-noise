@@ -1,6 +1,22 @@
 "use strict";
 
 (function () {
+  var dimensions = {
+    master: {
+      height: 1080,
+      width: 1920,
+    },
+
+    margin: {
+      top: 30, 
+      right: 20, 
+      bottom: 30, 
+      left: 20 
+    }
+  }
+  var width  = dimensions.master.width - dimensions.margin.left - dimensions.margin.right;
+  var height = dimensions.master.height - dimensions.margin.top - dimensions.margin.bottom;
+
   var colorScheme = {
     bg: d3.rgb(14,255,0),
     text: {
@@ -20,8 +36,8 @@
 
   var font = {
     size: {
-      min: 20,
-      max: 60,
+      max: Math.floor((height * width) / 7860),
+      min: Math.floor((height * width) / 7860) / 3,
       rand: function () {
         var size = font.size.min
           + Math.floor(Math.random() * (font.size.max - font.size.min));
@@ -57,10 +73,6 @@
 
   var entryPointSelector = "body";
 
-  var margin             = { top: 30, right: 20, bottom: 30, left: 20 };
-  var width              = 960 - margin.left - margin.right;
-  var height             = 480 - margin.top - margin.bottom;
-
   var hashtagData;
   var hashtagText;
 
@@ -75,7 +87,7 @@
     .append("g")
     .attr("id", "hashtags")
     .attr("class", "container")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    .attr("transform", "translate(" + dimensions.margin.left + "," + dimensions.margin.top + ")");
 
   var dsv = d3.dsv("\n", "text/plain");
 
