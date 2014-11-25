@@ -26,11 +26,10 @@
   };
 
   var transition = {
-    speeds: [
-      500,
-      1000,
-      2500
-    ]
+    speed: {
+      min: 100,
+      max: 500
+    }
   }
 
   var hashtagsFile       = "hashtags.txt"; // TODO: pull from Twitter API
@@ -107,12 +106,13 @@
 
       (function repeat() {
         text.transition()
-          .duration(function () { return transition.speeds[Math.floor(Math.random() * transition.speeds.length)]})
+          .delay(function () { return Math.floor(Math.random() * 10); })
+          .duration(function () { return transition.speed.min + Math.floor(Math.random() * (transition.speed.max - transition.speed.min)); })
           .attr("x", function () { return Math.floor(Math.random() * width); })
           .attr("y", function () { return Math.floor(Math.random() * height); })
           .attr("fill", getRandomFill)
-        // FIXME: implement different duration for fill and position 
-        .each("end", repeat);
+          // FIXME: implement different duration for fill and position 
+          .each("end", repeat);
       })();
     }
   }
