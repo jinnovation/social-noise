@@ -14,7 +14,8 @@ role of social media in fostering the relationships of today.
 This time around, I decided to take on a more agressive, pessimistic view of the
 whole social-media subject.
 
-Go take a look; I think you'll see what I mean.
+Go [take a look](http://jinnovation.github.io/social-noise/); 
+I think you'll see what I mean.
 
 ## Implementation
 
