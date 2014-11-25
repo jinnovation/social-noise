@@ -1,31 +1,32 @@
 "use strict";
 
-var colorScheme = {
-  bg: d3.rgb(14,255,0),
-  text: [
-    d3.rgb(255,238,0),
-    d3.rgb(238,51,34),
-    d3.rgb(0,119,238)
-  ]
-};
-
-var font = {
-  size: {
-    min: 20,
-    max: 40
-  },
-  faces: [
-    "cursive",
-    "fantasy"
-  ]
-};
-
-function randRange(min, max) {
-  return min + Math.floor(Math.random() * (max - min + 1));
-}
-
 (function () {
+  var colorScheme = {
+    bg: d3.rgb(14,255,0),
+    text: [
+      d3.rgb(255,238,0),
+      d3.rgb(238,51,34),
+      d3.rgb(0,119,238)
+    ]
+  };
+
+  var font = {
+    size: {
+      min: 20,
+      max: 50
+    },
+    faces: [
+      "cursive",
+      "fantasy",
+      "monospace",
+    ]
+  };
+
   var hashtagsFile       = "hashtags.txt"; // TODO: pull from Twitter API
+
+  function randRange(min, max) {
+    return min + Math.floor(Math.random() * (max - min + 1));
+  }
 
   var entryPointSelector = "body";
 
@@ -63,21 +64,23 @@ function randRange(min, max) {
       .enter()
       .append("text")
       .attr("class", "hashtag")
-      .text(function (d) { return d.tag; })
+      .text(function (d) { return d.tag; });
+
+    hashtagText
       .attr("x", function (d) { return Math.random() * width; })
       .attr("y", function (d) { return Math.random() * height;});
 
     hashtagText.attr("font-family", function () {
-        return font.faces[Math.floor(Math.random() * font.faces.length)];
-      });
+      return font.faces[Math.floor(Math.random() * font.faces.length)];
+    });
 
     hashtagText.attr("font-size", function () {
-        return randRange(font.size.min, font.size.max);
-      });
+      return randRange(font.size.min, font.size.max);
+    });
 
     hashtagText.attr("fill", function () {
-        var randIndex = Math.floor(Math.random() * colorScheme.text.length);
-        return colorScheme.text[randIndex];
-      });
+      var randIndex = Math.floor(Math.random() * colorScheme.text.length);
+      return colorScheme.text[randIndex];
+    });
   }
 })();
