@@ -16,9 +16,9 @@
   var font = {
     size: {
       min: 20,
-      max: 50,
+      max: 60,
       rand: function () {
-        var size = font.size.min 
+        var size = font.size.min
           + Math.floor(Math.random() * (font.size.max - font.size.min));
         return size;
       }
@@ -101,11 +101,8 @@
     });
 
     // TODO: randomize periodically
-    hashtagText.attr("font-size", function () {
-      return font.size.rand();
-    });
+    hashtagText.attr("font-size", font.size.rand);
 
-    // TODO: randomize periodically
     hashtagText.attr("fill", getRandomFill);
 
     hashtagText.transition()
@@ -121,7 +118,8 @@
           .attr("x", function () { return Math.floor(Math.random() * width); })
           .attr("y", function () { return Math.floor(Math.random() * height); })
           .attr("fill", getRandomFill)
-          // FIXME: implement different duration for fill and position 
+          // FIXME: implement different duration for fill and position
+          // FIXME: implement efficient transition for font size
           .each("end", repeat);
       })();
     }
